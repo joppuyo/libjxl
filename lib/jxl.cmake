@@ -541,8 +541,10 @@ foreach(target IN ITEMS jxl jxl_dec)
   # This hides the default visibility symbols from static libraries bundled into
   # the shared library. In particular this prevents exposing symbols from hwy
   # and skcms in the shared library.
-  set_property(TARGET ${target} APPEND_STRING PROPERTY
-      LINK_FLAGS " -Wl,--exclude-libs=ALL")
+  if (NOT ${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin")
+    set_property(TARGET ${target} APPEND_STRING PROPERTY
+        LINK_FLAGS " -Wl,--exclude-libs=ALL")
+  endif ()
 endforeach()
 
 # Only install libjxl shared library. The libjxl_dec is not installed since it
