@@ -324,6 +324,7 @@ jobs:
       env:
         BUILD_TARGET: ${{ matrix.build_target }}
   mac_build:
+      name: Mac Build
       runs-on: macos-11
       steps:
       - uses: actions/checkout@v2
