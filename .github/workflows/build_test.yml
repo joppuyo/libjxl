@@ -11,6 +11,7 @@ on:
     branches:
       - main
       - v*.*.x
+      - feature/mac-build
   pull_request:
     types: [opened, reopened, labeled, synchronize]
 
