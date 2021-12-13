@@ -331,10 +331,23 @@ jobs:
         with:
           submodules: recursive
       - name: Remove Mono
-        run: sudo rm -rf /Library/Frameworks/Mono.framework && 
-             sudo pkgutil --forget com.xamarin.mono-MDK.pkg &&
-             sudo rm /etc/paths.d/mono-commands
+        run: |
+          sudo rm -rf /Library/Frameworks/Mono.framework && \
+          sudo pkgutil --forget com.xamarin.mono-MDK.pkg && \
+          sudo rm /etc/paths.d/mono-commands
       - name: Install dependencies
-        run: brew install llvm coreutils cmake giflib jpeg-turbo libpng ninja zlib doxygen
+        run: | 
+          brew install \
+          llvm \
+          coreutils \
+          cmake \
+          giflib \
+          jpeg-turbo \
+          libpng \
+          ninja \
+          zlib \
+          doxygen
       - name: Build
-        run: export CMAKE_PREFIX_PATH=`brew --prefix giflib`:`brew --prefix jpeg-turbo`:`brew --prefix libpng`:`brew --prefix zlib`; ./ci.sh release -DJPEGXL_ENABLE_JNI=OFF
+        run: |
+          export CMAKE_PREFIX_PATH=`brew --prefix giflib`:`brew --prefix jpeg-turbo`:`brew --prefix libpng`:`brew --prefix zlib`; \
+          ./ci.sh release -DJPEGXL_ENABLE_JNI=OFF
