@@ -338,6 +338,6 @@ jobs:
       - name: Install more dependencies
         run: ./deps.sh
       - name: Build
-        run: ./ci.sh release -DJPEGXL_ENABLE_JNI=OFF
+        run: export CMAKE_PREFIX_PATH=`brew --prefix giflib`:`brew --prefix jpeg-turbo`:`brew --prefix libpng`:`brew --prefix zlib`; ./ci.sh release -DJPEGXL_ENABLE_JNI=OFF
       - name: Test
         run: ./ci.sh test
