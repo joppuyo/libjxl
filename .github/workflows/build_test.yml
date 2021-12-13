@@ -526,3 +526,17 @@ jobs:
          contains(github.event.pull_request.labels.*.names, 'CI:full'))
       run: |
         emconfigure ./ci.sh test
+  mac_build:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Install dependencies
+      run: brew install llvm coreutils cmake giflib jpeg-turbo libpng ninja zlib doxygen
+    - name: Install more dependencies
+      run: ./deps.sh
+    - name: Build
+      run: ./ci.sh release -DJPEGXL_ENABLE_JNI=OFF
+    - name: Test
+      run: ./ci.sh test
